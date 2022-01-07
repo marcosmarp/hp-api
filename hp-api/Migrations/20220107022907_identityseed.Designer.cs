@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hp_api;
 
@@ -11,9 +12,10 @@ using hp_api;
 namespace hp_api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220107022907_identityseed")]
+    partial class identityseed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,14 +58,8 @@ namespace hp_api.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EyeColour")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Gender")
                         .HasColumnType("int");
-
-                    b.Property<string>("HairColour")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("House")
                         .HasColumnType("int");
@@ -88,6 +84,12 @@ namespace hp_api.Migrations
 
                     b.Property<Guid?>("SpeciesId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("eyeColour")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("hairColour")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -208,7 +210,7 @@ namespace hp_api.Migrations
                         new
                         {
                             Id = "330eff41-bdf1-4bd3-941b-e4c3f43804be",
-                            ConcurrencyStamp = "965fd13c-2468-45bc-8cfd-0c2b7f6b9506",
+                            ConcurrencyStamp = "ebf07a9b-365c-415f-8d21-643f951e3747",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         });
