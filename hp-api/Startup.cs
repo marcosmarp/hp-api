@@ -24,6 +24,8 @@ namespace hp_api
 
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddHttpClient();
+
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
             sqlServerOptions => sqlServerOptions.UseNetTopologySuite()
