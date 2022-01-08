@@ -5,6 +5,7 @@ using hp_api.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using hp_api.Interfaces;
+using AutoMapper;
 
 namespace hp_api.Controllers
 {
@@ -14,15 +15,25 @@ namespace hp_api.Controllers
     {
         private readonly IHttpClientFactory httpClientFactory;
         private readonly ApplicationDbContext context;
+        private readonly IMapper mapper;
 
-        public CharactersController(IHttpClientFactory httpClientFactory, ApplicationDbContext context)
+        public CharactersController(IHttpClientFactory httpClientFactory, ApplicationDbContext context, IMapper mapper)
         {
             this.httpClientFactory = httpClientFactory;
             this.context = context;
+            this.mapper = mapper;
+        }
+
+        [HttpGet]
+        public async Task<List<CharacterDTO>> Get()
+        {
+            var charactersDB = await context.Characters.ToListAsync();
+            var charactersDTO = mapper.Map<List<CharacterDTO>>(charactersDB);
+            return charactersDTO;
         }
 
         [HttpGet("sync")]
-        public async Task<ActionResult> Get()
+        public async Task<ActionResult> Sync()
         {
             var httpClient = httpClientFactory.CreateClient();
             var fetchUrl = "http://127.0.0.1:5500";
