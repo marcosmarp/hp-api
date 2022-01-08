@@ -16,8 +16,8 @@ namespace hp_api
             var adminRole = new IdentityRole()
             {
                 Id = Environment.GetEnvironmentVariable("HPAPI_ADMINROLEID"),
-                Name = "Admin",
-                NormalizedName = "Admin"
+                Name = "admin",
+                NormalizedName = "admin"
             };
 
             modelBuilder.Entity<IdentityRole>().HasData(adminRole);
@@ -41,12 +41,12 @@ namespace hp_api
             modelBuilder.Entity<Character>()
                 .HasOne(e => e.Patronus)
                 .WithOne(e => e.Character)
-                .HasForeignKey<Character>(c => c.Id);
+                .HasForeignKey<Patronus>(p => p.CharacterId);
 
             modelBuilder.Entity<Character>()
                 .HasOne(e => e.Wand)
                 .WithOne(e => e.Character)
-                .HasForeignKey<Character>(c => c.Id);
+                .HasForeignKey<Wand>(p => p.CharacterId);
 
             SeedIdentityData(modelBuilder);
 

@@ -12,8 +12,8 @@ using hp_api;
 namespace hp_api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220107023046_capitalletters")]
-    partial class capitalletters
+    [Migration("20220108210422_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,6 +41,7 @@ namespace hp_api.Migrations
             modelBuilder.Entity("hp_api.Entities.Character", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Actor")
@@ -55,19 +56,19 @@ namespace hp_api.Migrations
                     b.Property<Guid?>("AncestryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("BirthDate")
+                    b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EyeColour")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gender")
+                    b.Property<int?>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("HairColour")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("House")
+                    b.Property<int?>("House")
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
@@ -109,7 +110,13 @@ namespace hp_api.Migrations
                     b.Property<string>("Animal")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("CharacterId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CharacterId")
+                        .IsUnique();
 
                     b.ToTable("Patronus");
                 });
@@ -134,18 +141,24 @@ namespace hp_api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<float>("Length")
-                        .HasColumnType("real");
-
-                    b.Property<Guid?>("WandCoreId")
+                    b.Property<Guid>("CharacterId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CoreId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<float?>("Length")
+                        .HasColumnType("real");
 
                     b.Property<Guid?>("WoodId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("WandCoreId");
+                    b.HasIndex("CharacterId")
+                        .IsUnique();
+
+                    b.HasIndex("CoreId");
 
                     b.HasIndex("WoodId");
 
@@ -210,9 +223,9 @@ namespace hp_api.Migrations
                         new
                         {
                             Id = "330eff41-bdf1-4bd3-941b-e4c3f43804be",
-                            ConcurrencyStamp = "965fd13c-2468-45bc-8cfd-0c2b7f6b9506",
-                            Name = "Admin",
-                            NormalizedName = "Admin"
+                            ConcurrencyStamp = "2f8c663f-86a0-4308-b391-ee124970e792",
+                            Name = "admin",
+                            NormalizedName = "admin"
                         });
                 });
 
@@ -393,40 +406,43 @@ namespace hp_api.Migrations
                         .WithMany("Characters")
                         .HasForeignKey("AncestryId");
 
-                    b.HasOne("hp_api.Entities.Patronus", "Patronus")
-                        .WithOne("Character")
-                        .HasForeignKey("hp_api.Entities.Character", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("hp_api.Entities.Wand", "Wand")
-                        .WithOne("Character")
-                        .HasForeignKey("hp_api.Entities.Character", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("hp_api.Entities.Species", null)
                         .WithMany("Characters")
                         .HasForeignKey("SpeciesId");
 
                     b.Navigation("Ancestry");
+                });
 
-                    b.Navigation("Patronus");
+            modelBuilder.Entity("hp_api.Entities.Patronus", b =>
+                {
+                    b.HasOne("hp_api.Entities.Character", "Character")
+                        .WithOne("Patronus")
+                        .HasForeignKey("hp_api.Entities.Patronus", "CharacterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Wand");
+                    b.Navigation("Character");
                 });
 
             modelBuilder.Entity("hp_api.Entities.Wand", b =>
                 {
-                    b.HasOne("hp_api.Entities.WandCore", "WandCore")
+                    b.HasOne("hp_api.Entities.Character", "Character")
+                        .WithOne("Wand")
+                        .HasForeignKey("hp_api.Entities.Wand", "CharacterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hp_api.Entities.WandCore", "Core")
                         .WithMany()
-                        .HasForeignKey("WandCoreId");
+                        .HasForeignKey("CoreId");
 
                     b.HasOne("hp_api.Entities.WandWood", "Wood")
                         .WithMany()
                         .HasForeignKey("WoodId");
 
-                    b.Navigation("WandCore");
+                    b.Navigation("Character");
+
+                    b.Navigation("Core");
 
                     b.Navigation("Wood");
                 });
@@ -487,19 +503,16 @@ namespace hp_api.Migrations
                     b.Navigation("Characters");
                 });
 
-            modelBuilder.Entity("hp_api.Entities.Patronus", b =>
+            modelBuilder.Entity("hp_api.Entities.Character", b =>
                 {
-                    b.Navigation("Character");
+                    b.Navigation("Patronus");
+
+                    b.Navigation("Wand");
                 });
 
             modelBuilder.Entity("hp_api.Entities.Species", b =>
                 {
                     b.Navigation("Characters");
-                });
-
-            modelBuilder.Entity("hp_api.Entities.Wand", b =>
-                {
-                    b.Navigation("Character");
                 });
 #pragma warning restore 612, 618
         }

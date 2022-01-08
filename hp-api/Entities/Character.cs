@@ -5,9 +5,9 @@
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string[] AlternativeNames { get; set; }
-        public Gender Gender { get; set; }
-        public House House { get; set; }
-        public DateOnly BirthDate { get; set; }
+        public Gender? Gender { get; set; }
+        public House? House { get; set; }
+        public DateOnly? BirthDate { get; set; }
         public bool IsWizard { get; set; }
         public Ancestry Ancestry { get; set; }
         public string EyeColour { get; set; }
