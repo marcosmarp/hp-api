@@ -25,10 +25,12 @@ namespace hp_api.Controllers
         }
 
         [HttpGet]
-        public async Task<List<CharacterDTO>> Get()
+        public ActionResult<List<CharacterDTO>> Get([FromQuery] CharacterFilterDTO characterFilterDTO)
         {
-            var charactersDB = await context.Characters.ToListAsync();
-            var charactersDTO = mapper.Map<List<CharacterDTO>>(charactersDB);
+            var charactersQueryable = context.Characters.AsQueryable();
+            charactersQueryable = ApplyFilter(charactersQueryable, characterFilterDTO);
+            
+            var charactersDTO = mapper.Map<List<CharacterDTO>>(charactersQueryable);
             return charactersDTO;
         }
 
@@ -137,6 +139,62 @@ namespace hp_api.Controllers
         private string ToTitleCase(string title)
         {
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(title.ToLower());
+        }
+
+        private IQueryable<Character> ApplyFilter(IQueryable<Character> queryable, CharacterFilterDTO filter)
+        {
+            if (!String.IsNullOrEmpty(filter.name))
+            {
+                queryable = queryable.Where(c => c.Name.Contains(filter.name));
+            }
+
+            if (!String.IsNullOrEmpty(filter.house))
+            {
+                House? house;
+                try
+                {
+                    house = (House)Enum.Parse(typeof(House), ToTitleCase(filter.house.ToLower()));
+                    queryable = queryable.Where(c => c.House == house);
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+
+            if (!String.IsNullOrEmpty(filter.gender))
+            {
+                Gender? gender;
+                try
+                {
+                    gender = (Gender)Enum.Parse(typeof(Gender), ToTitleCase(filter.gender));
+                    queryable = queryable.Where(c => c.Gender == gender);
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+
+            if (filter.isHogwartsStaff != null)
+            {
+                queryable = queryable.Where(c => c.IsHogwartsStaff == filter.isHogwartsStaff);
+            }
+
+            if (filter.isHogwartsStudent != null)
+            {
+                queryable = queryable.Where(c => c.IsHogwartsStudent == filter.isHogwartsStudent);
+            }
+
+            if (filter.isAlive != null)
+            {
+                queryable = queryable.Where(c => c.IsAlive == filter.isAlive);
+            }
+
+            if (filter.isWizard != null)
+            {
+                queryable = queryable.Where(c => c.IsWizard == filter.isWizard);
+            }
+
+            return queryable;
         }
     }
 }

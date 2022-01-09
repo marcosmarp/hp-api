@@ -11,6 +11,7 @@ namespace hp_api.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<Character, CharacterDTO>();
+
             CreateMap<Character, CharacterDetailsDTO>()
                 .ForMember(c => c.BirthDate, options => options.MapFrom(DateOnlyToString))
                 .ForMember(c => c.Ancestry, options => options.MapFrom(AncestryToString))
