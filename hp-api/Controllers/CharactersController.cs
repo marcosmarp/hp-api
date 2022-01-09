@@ -32,6 +32,24 @@ namespace hp_api.Controllers
             return charactersDTO;
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CharacterDetailsDTO>> Get([FromRoute] Guid id)
+        {
+            var characterDB = await context.Characters
+                .Include(c => c.Ancestry)
+                .Include(c => c.Wand)
+                .ThenInclude(w => w.Wood)
+                .Include(c => c.Wand)
+                .ThenInclude(w => w.Core)
+                .Include(c => c.Patronus)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (characterDB == null) return NotFound();
+
+            var characterDTO = mapper.Map<CharacterDetailsDTO>(characterDB);
+            return characterDTO;
+        }
+
         [HttpGet("sync")]
         public async Task<ActionResult> Sync()
         {
