@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using hp_api.Interfaces;
 using AutoMapper;
+using System.Net;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace hp_api.Controllers
 {
@@ -52,6 +55,7 @@ namespace hp_api.Controllers
             return characterDTO;
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [HttpGet("sync")]
         public async Task<ActionResult> Sync()
         {
