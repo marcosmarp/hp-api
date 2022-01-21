@@ -60,7 +60,7 @@ namespace hp_api.Controllers
         public async Task<ActionResult> Sync()
         {
             var httpClient = httpClientFactory.CreateClient();
-            var fetchUrl = "http://127.0.0.1:5500";
+            var fetchUrl = "http://hp-api.herokuapp.com/api/characters";
             var response = await httpClient.GetAsync(fetchUrl);
             var content = await response.Content.ReadAsStringAsync();
             var charactersSyncDTO = JsonConvert.DeserializeObject<List<CharacterSyncDTO>>(content);

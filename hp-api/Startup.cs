@@ -27,7 +27,7 @@ namespace hp_api
             services.AddHttpClient();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+            options.UseSqlServer(Environment.GetEnvironmentVariable("HPAPI_DBCONNECTION"),
             sqlServerOptions => sqlServerOptions.UseNetTopologySuite()
             ));
 
