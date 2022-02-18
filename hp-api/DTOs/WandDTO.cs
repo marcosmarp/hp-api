@@ -2,8 +2,8 @@
 {
     public class WandDTO
     {
-        public string Wood { get; set; }
-        public string Core { get; set; }
+        public WandWoodDTO Wood { get; set; }
+        public WandCoreDTO Core { get; set; }
         public float? Length { get; set; }
     }
 }

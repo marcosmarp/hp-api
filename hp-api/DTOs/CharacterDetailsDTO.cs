@@ -13,7 +13,7 @@ namespace hp_api.DTOs
         public string Ancestry { get; set; }
         public string EyeColour { get; set; }
         public string HairColour { get; set; }
-        public string Wand { get; set; }
+        public WandDTO Wand { get; set; }
         public string Patronus { get; set; }
         public bool IsHogwartsStudent { get; set; }
         public bool IsHogwartsStaff { get; set; }
