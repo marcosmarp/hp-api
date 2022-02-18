@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+
+        html, body {
+            width: 100vw;
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Yusei Magic', sans-serif;
+            text-align: center;
+        }
+
+        #root {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://wallpaperaccess.com/full/5823507.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            padding: 1rem;
+        }
+
+        #page_content {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 1rem;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        #title {
+            font-size: 3rem;
+            padding: .5rem;
+            margin: .5rem;
+            border-bottom: 1px solid white;
+        }
+
+        #subtitle {
+            margin-bottom: 1rem;
+        }
+
+        #subtitle > a {
+            color: white;
+        }
+
+    </style>
+
+    <title>Harry Potter API</title>
+</head>
+<body>
+    <div id="root">
+        <div id="page_content">
+            <span id="title">Harry Potter API</span>
+            <span id="subtitle">Docs and how to use it on <a href="https://github.com/marcosmarp/hp-api/" target="_blank" rel="noopener noreferrer">Github</a></span>
+            <div id="donate-button-container">
+                <div id="donate-button"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+    <script>
+        PayPal.Donation.Button({
+        env:'production',
+        hosted_button_id:'59F5WUQQ7T6TG',
+        image: {
+        src:'https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif',
+        alt:'Donate with PayPal button',
+        title:'PayPal - The safer, easier way to pay online!',
+        }
+        }).render('#donate-button');
+        </script>
+</body>
+</html>

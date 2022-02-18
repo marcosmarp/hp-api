@@ -56,6 +56,7 @@ namespace hp_api.Controllers
         }
 
         [HttpGet("sync")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         public async Task<ActionResult> Sync()
         {
             var httpClient = httpClientFactory.CreateClient();
