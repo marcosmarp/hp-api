@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -13,8 +14,8 @@ namespace hp_api.Migrations
                 name: "Ancestries",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -25,10 +26,10 @@ namespace hp_api.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -39,21 +40,21 @@ namespace hp_api.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,8 +65,8 @@ namespace hp_api.Migrations
                 name: "Species",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,8 +77,8 @@ namespace hp_api.Migrations
                 name: "WandCores",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -88,8 +89,8 @@ namespace hp_api.Migrations
                 name: "WandWoods",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -100,11 +101,11 @@ namespace hp_api.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RoleId = table.Column<string>(type: "text", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -121,11 +122,11 @@ namespace hp_api.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -142,10 +143,10 @@ namespace hp_api.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    ProviderKey = table.Column<string>(type: "text", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -162,8 +163,8 @@ namespace hp_api.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    RoleId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -186,10 +187,10 @@ namespace hp_api.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -206,23 +207,23 @@ namespace hp_api.Migrations
                 name: "Characters",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AlternativeNames = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Gender = table.Column<int>(type: "int", nullable: true),
-                    House = table.Column<int>(type: "int", nullable: true),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsWizard = table.Column<bool>(type: "bit", nullable: false),
-                    AncestryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    EyeColour = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HairColour = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsHogwartsStudent = table.Column<bool>(type: "bit", nullable: false),
-                    IsHogwartsStaff = table.Column<bool>(type: "bit", nullable: false),
-                    Actor = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AlternativeActors = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsAlive = table.Column<bool>(type: "bit", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SpeciesId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    AlternativeNames = table.Column<string>(type: "text", nullable: true),
+                    Gender = table.Column<int>(type: "integer", nullable: true),
+                    House = table.Column<int>(type: "integer", nullable: true),
+                    BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IsWizard = table.Column<bool>(type: "boolean", nullable: false),
+                    AncestryId = table.Column<Guid>(type: "uuid", nullable: true),
+                    EyeColour = table.Column<string>(type: "text", nullable: true),
+                    HairColour = table.Column<string>(type: "text", nullable: true),
+                    IsHogwartsStudent = table.Column<bool>(type: "boolean", nullable: false),
+                    IsHogwartsStaff = table.Column<bool>(type: "boolean", nullable: false),
+                    Actor = table.Column<string>(type: "text", nullable: true),
+                    AlternativeActors = table.Column<string>(type: "text", nullable: true),
+                    IsAlive = table.Column<bool>(type: "boolean", nullable: false),
+                    Image = table.Column<string>(type: "text", nullable: true),
+                    SpeciesId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -243,9 +244,9 @@ namespace hp_api.Migrations
                 name: "Patronus",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Animal = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CharacterId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Animal = table.Column<string>(type: "text", nullable: true),
+                    CharacterId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -262,11 +263,11 @@ namespace hp_api.Migrations
                 name: "Wands",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    WoodId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CoreId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    WoodId = table.Column<Guid>(type: "uuid", nullable: true),
+                    CoreId = table.Column<Guid>(type: "uuid", nullable: true),
                     Length = table.Column<float>(type: "real", nullable: true),
-                    CharacterId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CharacterId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -292,7 +293,7 @@ namespace hp_api.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "330eff41-bdf1-4bd3-941b-e4c3f43804be", "2f8c663f-86a0-4308-b391-ee124970e792", "admin", "admin" });
+                values: new object[] { "330eff41-bdf1-4bd3-941b-e4c3f43804be", "aff6b51f-72aa-4589-9eeb-3d7fb5c3e54e", "admin", "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -303,8 +304,7 @@ namespace hp_api.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -330,8 +330,7 @@ namespace hp_api.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Characters_AncestryId",

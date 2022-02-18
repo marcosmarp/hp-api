@@ -55,7 +55,6 @@ namespace hp_api.Controllers
             return characterDTO;
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         [HttpGet("sync")]
         public async Task<ActionResult> Sync()
         {
@@ -75,7 +74,7 @@ namespace hp_api.Controllers
                 var species = String.IsNullOrEmpty(characterSyncDTO.Species) ? null : await GetOrCreateEntityObjectByName<Species>(characterSyncDTO.Species);
                 Gender? gender = String.IsNullOrEmpty(characterSyncDTO.Gender) ? null : (Gender)Enum.Parse(typeof(Gender), ToTitleCase(characterSyncDTO.Gender));
                 House? house = String.IsNullOrEmpty(characterSyncDTO.House) ? null : (House)Enum.Parse(typeof(House), ToTitleCase(characterSyncDTO.House));
-                DateOnly? birthdate = String.IsNullOrEmpty(characterSyncDTO.DateOfBirth) ? null : DateOnly.FromDateTime(Convert.ToDateTime(characterSyncDTO.DateOfBirth));
+                DateTime? birthdate = String.IsNullOrEmpty(characterSyncDTO.DateOfBirth) ? null : Convert.ToDateTime(characterSyncDTO.DateOfBirth).ToUniversalTime();
                 var ancestry = String.IsNullOrEmpty(characterSyncDTO.Ancestry) ? null : await GetOrCreateEntityObjectByName<Ancestry>(characterSyncDTO.Ancestry);
                 var wandCore = String.IsNullOrEmpty(characterSyncDTO.Wand.Core) ? null : await GetOrCreateEntityObjectByName<WandCore>(characterSyncDTO.Wand.Core);
                 var wandWood = String.IsNullOrEmpty(characterSyncDTO.Wand.Wood) ? null : await GetOrCreateEntityObjectByName<WandWood>(characterSyncDTO.Wand.Wood);

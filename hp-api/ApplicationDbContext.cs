@@ -35,10 +35,6 @@ namespace hp_api
             .HasConversion<StringArrayConverter>();
 
             modelBuilder.Entity<Character>()
-                .Property(e => e.BirthDate)
-                .HasConversion<DateOnlyConverter>();
-
-            modelBuilder.Entity<Character>()
                 .HasOne(e => e.Patronus)
                 .WithOne(e => e.Character)
                 .HasForeignKey<Patronus>(p => p.CharacterId);
@@ -69,13 +65,5 @@ public class StringArrayConverter : ValueConverter<string[], string>
     public StringArrayConverter() : base(
             v => string.Join(',', v),
             v => v.Split(',', StringSplitOptions.RemoveEmptyEntries))
-    { }
-}
-
-public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
-{
-    public DateOnlyConverter() : base(
-            d => d.ToDateTime(TimeOnly.MinValue),
-            d => DateOnly.FromDateTime(d))
     { }
 }

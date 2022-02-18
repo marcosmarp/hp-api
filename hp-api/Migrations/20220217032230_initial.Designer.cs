@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using hp_api;
@@ -11,9 +12,10 @@ using hp_api;
 namespace hp_api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220217032230_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,7 +222,7 @@ namespace hp_api.Migrations
                         new
                         {
                             Id = "330eff41-bdf1-4bd3-941b-e4c3f43804be",
-                            ConcurrencyStamp = "a7324f75-b856-4b47-afbb-5c5f30060f27",
+                            ConcurrencyStamp = "aff6b51f-72aa-4589-9eeb-3d7fb5c3e54e",
                             Name = "admin",
                             NormalizedName = "admin"
                         });

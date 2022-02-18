@@ -26,10 +26,11 @@ namespace hp_api
 
             services.AddHttpClient();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Environment.GetEnvironmentVariable("HPAPI_DBCONNECTION"),
-            sqlServerOptions => sqlServerOptions.UseNetTopologySuite()
-            ));
+            services.AddEntityFrameworkNpgsql()
+                .AddDbContext<ApplicationDbContext>(options =>
+                {
+                    options.UseNpgsql(Environment.GetEnvironmentVariable("HPAPI_DBCONNECTION"));
+                });
 
             services.AddEndpointsApiExplorer();
 
@@ -115,6 +116,8 @@ namespace hp_api
             });
 
             app.UseCors();
+
+            Console.WriteLine("hey");
         }
     }
 }
