@@ -113,8 +113,6 @@ namespace hp_api
             });
 
             app.UseCors();
-
-            Console.WriteLine("hey");
         }
     }
 }
