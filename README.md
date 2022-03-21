@@ -4,10 +4,14 @@
 ##### [Use Swagger to test the API!](https://hp-api-marcosmarp.herokuapp.com/swagger/index.html)
 ### Get all characters (basic data)
 Make a `GET` request to `https://hp-api-marcosmarp.herokuapp.com/api/characters`
+
 You can filter the list through `name`, `gender`, `house`, `isWizard`, `isHogwartsStudent`, `isHogwartsStaff`, `isAlive` properties adding them to the GET query parameters
+
 For example, `https://hp-api-marcosmarp.herokuapp.com/api/characters?name=Weasley&isAlive=true` will only return the Weasley alive characters
+
 ### Get a character by ID (detailed data)
 Make a `GET` request to `https://hp-api-marcosmarp.herokuapp.com/api/characters/{id}`
+
 For example, `https://hp-api-marcosmarp.herokuapp.com/api/characters/60be073e-2f67-416c-a87d-c9b0a8129261` will return the Harry Potter data.
 
 ## What's this?
