@@ -87,6 +87,8 @@ namespace hp_api
                 c.IncludeXmlComments(routeXML, includeControllerXmlComments: true);
             });
 
+            services.AddCors(c => c.AddDefaultPolicy(p =>
+                p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,6 +100,8 @@ namespace hp_api
 
             app.UseRouting();
 
+            app.UseCors();
+            
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -111,8 +115,6 @@ namespace hp_api
             {
                 endpoints.MapControllers();
             });
-
-            app.UseCors();
         }
     }
 }
